@@ -8,19 +8,11 @@ This repository contains model, preprocessing, training, validation, explainabil
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    A[Early and late DCE-MRI] --> B[ROI preprocessing]
-    B --> C[Kinetics-aware input]
-    C --> D[Shared 3D encoder]
-    D --> E[Intratumoral stream]
-    D --> F[Peritumoral ring stream]
-    E --> G[DSTA-Mamba]
-    F --> G
-    G --> H[Asymmetric cross-region interaction]
-    H --> I[Multiscale feature aggregation]
-    I --> J[pCR probability]
-```
+<p align="center">
+  <img src="assets/rapss-net-architecture.png" alt="RAPSS-Net architecture: shared 3D encoder, region-aware dual streams, dynamic stepwise tri-axial Mamba, asymmetric cross-region interaction, and multiscale aggregation" width="100%">
+</p>
+
+<p align="center"><sub>Architecture figure from the author-provided RAPSS-Net manuscript draft.</sub></p>
 
 The main implementation is [`models/lesion_centric_3d_net.py`](models/lesion_centric_3d_net.py). Dynamic stepwise tri-axial scanning and cross-region interaction are implemented in [`models/blocks/contextual_mamba_block.py`](models/blocks/contextual_mamba_block.py).
 
