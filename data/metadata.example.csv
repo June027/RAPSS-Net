@@ -1,0 +1,5 @@
+id,label,center,patient_group
+demo_001,0,ISPY1,demo_001
+demo_002,1,ISPY1,demo_002
+demo_003,0,ISPY2,demo_003
+demo_004,1,Duke,demo_004

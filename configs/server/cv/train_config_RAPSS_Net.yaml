@@ -1,0 +1,89 @@
+project:
+  name: RAPSS-Net_CV
+  seed: 42
+  device: cuda
+paths:
+  data_dir: "data/processed"
+  metadata_path: "data/processed/dataset_metadata.csv"
+  log_dir: "outputs/cv"
+data:
+  cache_in_memory: true
+  num_workers: 8
+  clinical_keys: []
+  strict_file_check: false
+  strict_file_check_train: false
+  strict_file_check_val: true
+  augmentation:
+    enabled: true
+    flip_prob: 0.5
+    affine_prob: 0.5
+    affine_degrees: 15
+    affine_translate: 0.1
+    affine_scale:
+    - 0.9
+    - 1.1
+    intensity_prob: 0.5
+    intensity_brightness: 0.0
+    intensity_contrast:
+    - 0.85
+    - 1.15
+model:
+  type: tridual_3d
+  in_channels: 2
+  base_dim: 32
+  mamba_layers: 1
+  use_peritumor: true
+  use_deep_supervision: false
+  use_dynamic_scan_router: true
+  d_state: 16
+  d_conv: 4
+  expand: 2
+  drop_path_rate: 0.1
+  layer_scale_init_value: 0.0001
+  use_kinetics_channel: true
+  intensity_norm_mode: global_temporal_zscore
+  use_explicit_peritumor_ring: true
+  peritumor_ring_kernel_size: 5
+  use_multiscale_feature_aggregation: true
+  multiscale_dropout: 0.0
+train:
+  internal_centers:
+  - ISPY1
+  - ISPY2
+  external_centers:
+  - Duke
+  internal_test_size: 0.2
+  use_domain_debias: false
+  validation_mode: global_cv
+  n_splits: 5
+  epochs: 120
+  batch_size: 8
+  accumulation_steps: 2
+  lr: 0.0001
+  weight_decay: 0.005
+  classification_loss: ce
+  label_smoothing: 0.02
+  clip_grad: 1.0
+  amp: true
+  compile: false
+  patience: 20
+  loss_warmup_epochs: 10
+  ema_decay: 0.995
+  aux_anneal_epochs: 100
+  habitat_erosion_kernel: 3
+  habitat_dilation_kernel: 5
+  mask_drop_prob: 0.0
+  use_class_weights: true
+  use_weighted_sampler: false
+  class_balance_power: 1.0
+  sampler_num_samples_multiplier: 1.0
+  resume_training: false
+loss_weights:
+  pcr: 1.0
+  seg: 0.0
+  domain: 0.0
+  habitat: 0.0
+test:
+  bootstrap_iterations: 1000
+  tta_enabled: false
+  tta_flip_axes: []

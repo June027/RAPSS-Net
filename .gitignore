@@ -1,0 +1,38 @@
+# Patient data and derived arrays
+data/raw/
+data/processed/
+data/problematic/
+data/external/
+*.nii
+*.nii.gz
+*.nrrd
+*.dcm
+*.npy
+*.npz
+*.csv
+*.xlsx
+!data/metadata.example.csv
+
+# Checkpoints and experiment outputs
+outputs/
+output/
+logs/
+checkpoints/
+weights/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# Python and editors
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

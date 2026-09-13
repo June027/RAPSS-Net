@@ -1,0 +1,43 @@
+data_prep:
+  target_shape: [32, 128, 128]
+  unified_pool_dir: "data/processed"
+  problematic_raw_dir: "data/problematic"
+
+  processing_params:
+    interpolation_order: 3
+    n4_iterations: [50, 50, 50, 50]
+    standardization_mode: none
+    max_workers: 16
+
+  phase_selection:
+    enabled: true
+    phase_columns: ["post_early", "post_late"]
+    filename_phase_regex: "(?:aqc|acq)[_-]?(?P<phase>\\d+)"
+
+  datasets:
+    ISPY2:
+      img_dir: "data/raw/ISPY2/images"
+      table_path: "data/raw/ISPY2/ISPY2_metadata.csv"
+      pid_col: "pid"
+      pcr_col: "pCR"
+      phase_selection:
+        enabled: true
+        phase_columns: ["post_early", "post_late"]
+
+    ISPY1:
+      img_dir: "data/raw/ISPY1/images"
+      table_path: "data/raw/ISPY1/ISPY1_metadata.xlsx"
+      pid_col: "pid"
+      pcr_col: "pCR"
+      phase_selection:
+        enabled: true
+        phase_columns: ["post_early", "post_late"]
+
+    Duke:
+      img_dir: "data/raw/Duke/images"
+      table_path: "data/raw/Duke/Duke_metadata.csv"
+      pid_col: "pid"
+      pcr_col: "pCR"
+      phase_selection:
+        enabled: true
+        phase_columns: ["post_early", "post_late"]
